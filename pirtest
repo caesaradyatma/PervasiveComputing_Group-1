@@ -1,5 +1,3 @@
-cara run:
-sudo python pirtest.py
 
 #from gpiozero import MotionSensor
 import RPi.GPIO as GPIO
