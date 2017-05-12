@@ -1,0 +1,50 @@
+cara run:
+sudo python pirtest.py
+
+#from gpiozero import MotionSensor
+import RPi.GPIO as GPIO
+import time
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(11, GPIO.IN)
+GPIO.setup(3,GPIO.OUT)     #Define pin 3 as an output pin
+
+k = 0
+
+
+#method for taking picture using the picamera
+def takepict(k):
+        import picamera
+        l = str(k)
+        #print l
+        camera = picamera.PiCamera()
+        camera.vflip = True
+        camera.hflip = True
+        camera.capture(l + ".jpg")
+        camera.close()
+
+#pir = MotionSensor(4)
+
+while True:
+        i = GPIO.input(11)
+        if i == 0:
+                print "lel" ,i
+                GPIO.output(3,0)   #Outputs digital HIGH signal (5V) on pin 3
+                time.sleep(3)      #Time delay of 1 second
+        if i == 1:
+                print "kappa",i
+                k = k + 1
+                takepict(k)
+                GPIO.output(3,1)   #Outputs digital LOW signal (0V) on pin 3
+                time.sleep(3)      #Time delay of 1 second
+
+#def takepict(k):
+#       k = k+1
+#       camera = picamera.PiCamera()
+#       camera.capture('image',k,'.jpg')
+#       camera.close()
+
+
+
+
+
