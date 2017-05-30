@@ -1,7 +1,7 @@
 # PervasiveComputing_Group-1
 
 ## PIR SENSOR BASED SECURITY CAMERA
-![System Sketch](images/diagram.png)
+![System Sketch](image/diagram.png)
 
 ## PROJECT DESCRIPTIONS 
 In this project, we are going to make a surveillance camera that will interact with user’s phone through email. Raspberry pi is going to be used as the main hardware and Ubuntu MATE is installed in the raspberry pi as the operating system. The surveillance camera will also use the Raspberry PI camera module as the main feature to take pictures and it will collaborate with PIR sensor that will be used for identifying movement and the movement detection will provide trigger for the camera to operate.
