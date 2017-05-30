@@ -1,0 +1,128 @@
+#required import for the application
+
+
+import RPi.GPIO as GPIO 
+#import GPIO as main input output
+
+
+import time 
+#import time function
+
+
+import datetime 
+#import datetime library
+
+
+import smtplib
+
+
+#import email library
+
+GPIO.setwarnings(False)
+
+GPIO.setmode(GPIO.BOARD)
+
+GPIO.setup(11, GPIO.IN)
+
+GPIO.setup(3,GPIO.OUT)     #Define pin 3 as an output pin
+
+
+
+k = 0
+
+x = 5
+
+
+
+
+#method for taking picture using the picamera
+
+def takepict(k):
+        
+	import picamera
+		
+	l = str(k)
+#convert k to string   
+        
+	timestamp = "{:%Y-%b-%d %H:%M:%S}".format(datetime.datetime.now())
+        
+	#print l
+        
+	camera = picamera.PiCamera()
+        
+	camera.vflip = True
+        
+	camera.hflip = True
+        
+	camera.capture(timestamp + ".jpg")
+
+        
+	camera.close()
+
+#method for sending email with timestamp
+
+
+
+def sendEmail(k):
+
+        
+	l = str(k)
+        
+	timestamp = "{:%Y-%b-%d %H:%M:%S}".format(datetime.datetime.now())
+
+        
+	email = "caesar.adyatma97@gmail.com"
+        
+	password = "pervasivecomputing"
+        
+	email_to = "caesar_prayogo@hotmail.com"
+
+        
+	server = smtplib.SMTP("smtp.gmail.com",587)
+        
+	server.starttls()
+        
+	server.login(email,password)
+
+        
+	body = "camera trigger: " + l + " last detected photo taken: " + timest$
+
+        
+	server.sendmail(email,email_to, body)
+        
+	server.quit()
+
+
+
+#main fucntion
+
+while True:
+        
+	i = GPIO.input(11)
+        
+	if i == 0:
+                
+		print "No Movement Detected" ,i 
+                
+		GPIO.output(3,0)   #Outputs digital HIGH signal (5V) on pin 3
+                
+		time.sleep(3)      #Time delay of 1 second
+        
+	if i == 1:
+                
+		print "Movement Detected, Taking Picture",i
+                
+		k = k + 1
+ #increase the amount of K as a counter                 
+		takepict(k)
+                
+		if k > x:
+                        
+			sendEmail(k)
+                        
+			x = x + 5	#Email notification every 5 motions detected            
+		GPIO.output(3,1)   #Outputs digital LOW signal (0V) on pin 3
+                
+		time.sleep(3)      #Time delay of 3 second
+
+
